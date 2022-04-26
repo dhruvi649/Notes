@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "491347732032",
+    "project_id": "groovy-producer-343018",
+    "storage_bucket": "groovy-producer-343018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491347732032:android:a1a58254f845434b3ae1a5",
+        "android_client_info": {
+          "package_name": "com.example.notes_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491347732032-3crk693njsqjiplunti56g2615n6i3j7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVyQAjFOxAh1sD_-aHqInazJC4oCU0-68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491347732032-3crk693njsqjiplunti56g2615n6i3j7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
