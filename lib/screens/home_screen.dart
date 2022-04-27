@@ -2,8 +2,10 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes_app/auth/signin/signin_screen.dart';
 import 'package:notes_app/screens/add_notes.dart';
+import 'package:notes_app/screens/favorite_screen.dart';
 import 'package:notes_app/screens/view_notes.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Colors.green[200]!,
     Colors.deepPurple[200]!,
     Colors.cyan[200]!,
+    Colors.purpleAccent[200]!,
+    Colors.tealAccent[200]!,
   ];
   final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -29,6 +33,34 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: customAppBar(),
       floatingActionButton: buildFloatingActionButton(context),
       body: notes_card(),
+      drawer: drawer(context),
+    );
+  }
+
+  Drawer drawer(BuildContext context) {
+    return Drawer(
+      backgroundColor: Colors.grey,
+      child: ListView(
+        children: [
+          ListTile(
+            title: const Text(
+              'Favorite',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 25.0,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FavoriteScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -84,22 +116,46 @@ class _HomeScreenState extends State<HomeScreen> {
               Color bg = myColors[random.nextInt(4)];
               Map? data = snapshot.data!.docs[index].data() as Map?;
               DateTime myDateTime = data!['created'].toDate();
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ViewNotes(
-                          data: data,
-                          reference: snapshot.data!.docs[index].reference,
+              return Slidable(
+                startActionPane: ActionPane(motion: ScrollMotion(), children: [
+                  SlidableAction(
+                    onPressed: (BuildContext context) async{
+                      await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(currentUser!.email)
+                          .collection('favorite')
+                          .add({
+                        'title': data['title'],
+                        'description': data['description'],
+                        'created': DateTime.now(),
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FavoriteScreen()));
+                    },
+                    backgroundColor: Colors.green,
+                    label: 'Favorite',
+                    icon: Icons.favorite,
+                  ),
+                ]),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 5.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViewNotes(
+                            data: data,
+                            reference: snapshot.data!.docs[index].reference,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: customCard(bg, data, myDateTime),
+                      );
+                    },
+                    child: customCard(bg, data, myDateTime),
+                  ),
                 ),
               );
             },
