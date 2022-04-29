@@ -112,7 +112,7 @@ class _AddNotesState extends State<AddNotes> {
     return TextFormField(
       controller: _description,
       decoration: const InputDecoration.collapsed(hintText: 'Description'),
-      style: const TextStyle(fontSize: 20.0, color: Colors.grey),
+      style: const TextStyle(fontSize: 20.0, color: Colors.white),
       maxLines: 20,
     );
   }
@@ -121,7 +121,7 @@ class _AddNotesState extends State<AddNotes> {
     return TextFormField(
       decoration: const InputDecoration.collapsed(hintText: 'Title'),
       style: const TextStyle(
-          fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.grey),
+          fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.white),
       controller: _title,
     );
   }

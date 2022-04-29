@@ -227,6 +227,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     userModel.uid = user.uid;
     userModel.name = nameEditingController.text;
     userModel.password = passwordEditingController.text;
+    userModel.photoUrl = 'assets/images/profile.jpg';
 
     await firebaseFirestore
         .collection("users")

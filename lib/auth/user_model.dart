@@ -3,8 +3,9 @@ class UserModel{
   String? email;
   String? name;
   String? password;
+  String? photoUrl;
 
-  UserModel({this.uid, this.email, this.name, this.password});
+  UserModel({this.uid, this.email, this.name, this.password, this.photoUrl});
 
 
   // Receive data from server
@@ -14,6 +15,7 @@ class UserModel{
       email: map['email'],
       name: map['name'],
       password: map['password'],
+      photoUrl: map['photoUrl'],
     );
   }
 
@@ -24,6 +26,7 @@ class UserModel{
       'email': email,
       'name': name,
       'password': password,
+      'photoUrl': photoUrl,
     };
   }
 
